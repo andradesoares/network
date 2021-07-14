@@ -1,0 +1,68 @@
+.postContainer{
+    border: 1px solid grey;
+    border-radius: 5px;
+    margin: 10px 0;
+    padding:10px
+}
+
+.postBody{
+    margin: 0 0 10px 0;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.postTimestamp{
+    color:#8a8a8a;
+    font-size: 12px;
+}
+
+h5{
+    margin-bottom: 20px;
+}
+
+.likeButton img{
+    margin-right: 10px;
+    max-height: 25px;
+}
+
+.likeButton:hover{
+    cursor: pointer;
+}
+
+.likeButton > * {
+    pointer-events: none;
+  }
+
+.followButton:hover{
+    cursor: pointer;
+}
+
+.followButton > * {
+    pointer-events: none;
+  }
+
+.lineheight{
+    padding:2px!important;
+    line-height: 22px!important;
+    height: 27px!important;
+    vertical-align: top;
+    font-size: 12px;
+}
+
+.editButton, .saveButton, .cancelButton{
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.editButton:hover{
+    cursor: pointer;
+    font-weight: 700;
+}
+.saveButton:hover{
+    cursor: pointer;
+    font-weight: 700;
+}
+.cancelButton:hover{
+    cursor: pointer;
+    font-weight: 700;
+}

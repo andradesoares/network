@@ -1,0 +1,74 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <div class="mt-5 container">
+        <div class="d-flex justify-content-between w-50">
+            <h4 class="folowersCount">Followers: {{ followers.count }}</h4>
+            <h4>Following: {{ following.count }}</h4>
+            {% if user.username == perfil %}
+                
+            {% else %}
+                <form class="followButton">
+                    <input type="hidden" id="followPerfil" value="{{perfil}}">
+                    <button type="submit" id="followButtonId" class="lineheight btn btn-primary">{{follow}}</button>
+                </form>
+            {% endif %}
+        </div>
+    </div>
+    <div class="mt-5 container">
+        {% for post in posts %}
+            <div class="postContainer">
+                <a href="{% url 'profile' post.user_id %}"><h5>{{ post.user_id }}</h5></a>
+                <p class="postBody">{{ post.body }}</p>
+                <p class="postTimestamp">{{ post.timestamp }}</p>
+                <div class="d-flex">
+                    <form class="likeButton" id="{{post.id}}">
+                        {% if user in post.like.all %}
+                            <img id="likeImage{{post.id}}" src="../../static/network/likeButtonRed.png" alt="Italian Trulli">
+                        {% else %}
+                            <img id="likeImage{{post.id}}" src="../../static/network/likeButtonWhite.png" alt="Italian Trulli">
+                        {% endif %}
+                    </form>
+                    <p id="postCount{{post.id}}">{{ post.like.count }}</p>
+                </div>
+                {% if user == post.user_id %}
+                    <div class="d-flex" id="anchor{{post.id}}">
+                        <a class="editButton" id="{{post.id}}">Edit</a>
+                    </div>
+                {% else %}
+
+                {% endif %}
+            </div>
+        {% empty %}
+
+        {% endfor %}
+    </div>
+    {% if posts.has_other_pages %}
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                {% if posts.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?page={{ posts.previous_page_number }}">&laquo;</a></li>
+                {% else %}
+                    <li class=" page-item disabled"><span class="page-link">&laquo;</span></li>
+                {% endif %}
+                {% for i in posts.paginator.page_range %}
+                    {% if posts.number == i %}
+                        <li class="page-item active"><span class="page-link">{{ i }} <span class="page-link sr-only">(current)</span></span></li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% if posts.has_next %}
+                    <li class="page-item" ><a class="page-link" href="?page={{ posts.next_page_number }}">&raquo;</a></li>
+                {% else %}
+                    <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
+                {% endif %}
+            </ul>
+        </nav>
+    {% endif %}
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'network/inbox.js' %}"></script>
+{% endblock %}
